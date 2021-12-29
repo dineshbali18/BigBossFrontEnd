@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useRef} from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Platform,StyleSheet, TextInput, View,ScrollView, Button, AppRegistry, Alert,Image} from 'react-native';
 // import VoteTelugu from './VoteTelugu'
@@ -8,7 +8,11 @@ import Home from '../Home';
 import { signin } from './helper/authCalls';
 
 export default function SignIn(props) {
-    const [homepage,setHomePage]=useState(0);
+    // const [homepage,setHomePage]=useState(0);
+    // const [userId,setUserId]=useState(0)
+    const userId=useRef(0)
+    // const [token,setToken]=useState('');
+    const token = useRef('')
     const [user,setUser]=useState({
         email:"",
         password:"",
@@ -25,26 +29,53 @@ export default function SignIn(props) {
         setUser({...user,password:text})
     }
 
-    const onSubmit=()=>{
-        console.log("hhehhhhhh")
-        signin({email,password}).then(data=>{
-            if(data.error){
-                setUser({...user,error:data.error})
-            }
-            else{
-                setUser({...user,
-                email:"",
-                password:"",
-                error:"",
-                success:true})
-                Actions.home();
-            }
-        })
+    // const signIN=()=>{
+    //     signin({email,password}).then(data=>{
+    //         // console.log("signin call");
+    //         // console.log(data);
+    //         if(data.error){
+    //             setUser({...user,error:data.error})
+    //         }
+    //         else{
+    //             // {console.log(data.user._id)}
+    //             setToken(data.token);
+    //             setUserId(data.user._id);
+    //             setUser({...user,
+    //             email:"",
+    //             password:"",
+    //             error:"",
+    //             success:true})
+    //             // setHomePage(1);
+    //         }})
+    // }
+    
+     const onSubmit = async()=>{
+        const data=await signin({email,password})
+        if(data.error){
+            setUser({...user,error:data.error})
+        }
+        else{
+            // setToken(data.token);
+            userId.current=data.user._id;
+            token.current=data.token;
+            // console.log("aaaaaaaa",token);
+            // setUserId(data.user._id);
+            setUser({...user,
+            email:"",
+            password:"",
+            error:"",
+            success:true})
+            
+            Actions.home({token,userId});
+            // setHomePage(1);
+        }
+    
     }
-
 
     return (
         <>
+        {/* {homepage==1?<><Home/></>:
+        <> */}
         <View >
         <Button  title="   go Back" onPress={()=>{Actions.pop()}}/>
         </View>
@@ -67,7 +98,9 @@ export default function SignIn(props) {
           <Button title='submit' onPress={()=>{onSubmit()}}/>
           </View>
       </View>
-      </>
+      {/* </> */}
+        {/* } */}
+        </>
     )
 }
 

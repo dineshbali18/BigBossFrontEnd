@@ -80,12 +80,11 @@ export default function SignUp(props) {
         // console.log("lllooolll")
         verifyotp({email,otp}).then(data=>{
             if(data.error){
-                console.log("----------bd")
                 console.log(data.error);
             }
-                console.log("----------------")
+                // console.log("----------------")
                 setVerify(1);
-                console.log("----------------")
+                // console.log("----------------")
         });
     }
 

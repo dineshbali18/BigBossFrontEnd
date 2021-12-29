@@ -3,37 +3,66 @@ import React,{useState,useEffect} from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Platform,StyleSheet, Text, View,ScrollView, Button, AppRegistry, Alert,Image} from 'react-native';
 // import VoteTelugu from './VoteTelugu'
-import { getContestants,increVote } from './helper/apicalls';
+import { getContestants,increVote,loadUserVotes,decrement } from './helper/apicalls';
 import { Actions } from 'react-native-router-flux';
 
 export default function VoteTelugu(props) {
+
+  console.log(props);
 
   const goToCheckPercenta = () => {
     Actions.checkpercenta()
  }
 
-
+    const [votesleft,setVotesleft]=useState(0);
     const [BBMates,setBBMates]=useState([])
     
-    const loadAllProduct = () => {
+    const loadVotes=()=>{
+      loadUserVotes(props.token,props.userId)
+      .then(data=>{
+        if (data.error) {
+          console.log(data.error);
+        } else {
+          setVotesleft(data.remaining_votes);
+        }
+      })
+    }
+
+    const loadAllContestants = () => {
         getContestants().then(data => {
+          // console.log("------------------------")
+          // console.log(data);
+          // console.log("----------------------")
           if (data.error) {
             console.log(data.error);
           } else {
-            //   console.log(data);
             setBBMates(data.contestants1);
           }
         });
       };
-
+    
     const castVote=(id)=>{
-        increVote(id);
+      if(votesleft>0){
+        increVote(props.userId,id,props.token);
+      }
     }
 
+    const decre=()=>{
+      if(votesleft>0){
+      decrement(props.token,props.userId);
+      }
+    }
 
     useEffect(()=>{
-        loadAllProduct();
+        loadAllContestants();
+        loadVotes();
     },[]);
+
+      const Voteleft=()=>{
+        if(votesleft>0){
+        setVotesleft(votesleft-1)
+        }
+      }
 
     return (
         <>
@@ -42,11 +71,12 @@ export default function VoteTelugu(props) {
         <Button  title="   go Back" onPress={()=>{Actions.pop()}}/>
         </View>
             <View style={votestyles.container}>
+            <View><Text>{votesleft>0?<Text>Votes Left:{votesleft}</Text>:<Text>No Votes Left today</Text>}</Text></View>
       {BBMates.map((conte, index) => {
             return (
                 <View style={styles.container}>
-                <Text key={conte.name}>{conte.name}</Text>
-                <Button color="#ff5c5c"  title="Vote" onPress={()=>{castVote(conte._id)}}/>
+                <Text key={index}>{conte.name}</Text>
+                <Button color="#ff5c5c"  title="Vote" onPress={()=>{castVote(conte._id),Voteleft(),decre()}}/>
                 </View>
             );
           })}

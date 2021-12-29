@@ -5,9 +5,14 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { StyleSheet, Text, View,ScrollView, Button, AppRegistry, Alert} from 'react-native';
 import VoteTelugu from './VoteTelugu'
 import { Actions } from 'react-native-router-flux';
+import { focusProps } from 'react-native-web/dist/cjs/modules/forwardedProps';
 
 
-export default function Home() {
+export default function Home(props) {
+  console.log("/////////////////////////////")
+  console.log(props);
+  const[token,setToken]=useState(props.token.current);
+  const[userId,setUserId]=useState(props.userId.current)
 
 
  const [myArray, setMyArray] = useState([]);
@@ -19,12 +24,6 @@ export default function Home() {
     {label: 'Hindi', value: 'hindi'},
     {label: 'Tamil', value: 'tamil'},
 ]);
-
-// "react-native-gesture-handler": "~1.10.2",
-//     "react-native-image-picker": "^4.3.0",
-//     "react-native-reanimated": "^2.2.4",
-//     "react-native-router-flux": "^4.3.1",
-//     "react-native-safe-area-context": "^3.3.2",
 
 
   return (
@@ -42,7 +41,7 @@ export default function Home() {
 <Text/>
 <Text/>
 </View>
-<Button color="#ff5c5c"  title="   Vote   " onPress={()=>{Actions.votetelugu()}}/>
+<Button color="#ff5c5c"  title="   Vote   " onPress={()=>{console.log("dinu home props"),Actions.votetelugu({token,userId})}}/>
 
       <StatusBar style="auto" />
       </>
