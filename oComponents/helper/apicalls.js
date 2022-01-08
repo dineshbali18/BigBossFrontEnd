@@ -9,6 +9,15 @@ export const getContestants = () => {
     .catch(err => console.log(err));
 };
 
+export const getContestants1 = () => {
+  return fetch(`${API}/all/contestants`, 
+  { method: "GET" })
+    .then(response => {
+      return response.json();
+    })
+    .catch(err => console.log(err));
+};
+
 export const increVote=(userId,contestantid,token)=>{
     return fetch(`${API}/user/${userId}/contestant/incre/${contestantid}`, 
     { method: "GET",

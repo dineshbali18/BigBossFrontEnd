@@ -3,7 +3,7 @@ import React,{useState,useEffect} from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Platform,StyleSheet, Text, View,ScrollView, Button, AppRegistry, Alert,Image} from 'react-native';
 // import VoteTelugu from './VoteTelugu'
-import { getContestants,increVote } from './helper/apicalls';
+import { getContestants1,increVote } from './helper/apicalls';
 import { Actions } from 'react-native-router-flux';
 import VoteTelugu from './VoteTelugu';
 
@@ -12,7 +12,7 @@ export default function CheckPercenta() {
     const [contestan,setContestan]=useState([]);
 
     const loadAllProduct = () => {
-        getContestants().then(data => {
+        getContestants1().then(data => {
           if (data.error) {
             console.log(data.error);
           } else {
