@@ -8,7 +8,7 @@ import { Actions } from 'react-native-router-flux';
 
 export default function VoteTelugu(props) {
 
-  console.log(props);
+  // console.log(props);
 
   const goToCheckPercenta = () => {
     Actions.checkpercenta()
@@ -71,7 +71,9 @@ export default function VoteTelugu(props) {
         <Button  title="   go Back" onPress={()=>{Actions.pop()}}/>
         </View>
             <View style={votestyles.container}>
-            <View><Text>{votesleft>0?<Text>Votes Left:{votesleft}</Text>:<Text>No Votes Left today</Text>}</Text></View>
+            {/* <View><Text>{votesleft>0?<Text>Votes Left:{votesleft}</Text>:<Text>No Votes Left today</Text>}</Text></View> */}
+            <View><Text>Votes Left:{votesleft}</Text></View>
+
       {BBMates.map((conte, index) => {
             return (
                 <View style={styles.container}>

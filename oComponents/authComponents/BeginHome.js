@@ -9,12 +9,13 @@ export default function VoteTelugu(props) {
     
     return (
         <>
+        <View style={votestyles.container}>
         <Text>Welcome To Big Boss Unofficial Voting</Text>
+        </View>
         <View>
             <Button title="SignUp" onPress={()=>{Actions.signup()}}/>
             <Button title="SignIn" onPress={()=>{Actions.signin()}}/>
       </View>
-        
         </>
     )
 }
@@ -27,13 +28,12 @@ const styles=StyleSheet.create({
 
 const votestyles = StyleSheet.create({
     container: {
-        marginTop:20,
+      marginTop:20,
       padding: 20,
       flex: 1,
-      backgroundColor: '#fff',
+      backgroundColor: 'yellow',
     },
     backbutton:{
-        marginTop:20,
         width:100,
     }
   });

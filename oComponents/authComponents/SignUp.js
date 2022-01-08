@@ -5,6 +5,8 @@ import { Platform,StyleSheet, TextInput, View,ScrollView, Button,Text, AppRegist
 import { Actions } from 'react-native-router-flux';
 import { getotp, sendotp, signup,verifyotp } from './helper/authCalls';
 
+
+
 export default function SignUp(props) {
     const [verify,setVerify]=useState(0)
     const [otp,setOtp]=useState("");
@@ -94,6 +96,8 @@ export default function SignUp(props) {
         <Button  title="   go Back" onPress={()=>{Actions.pop()}}/>
         </View>
 
+        <View style={styles.container}>
+
         <View>
         <TextInput
         style={{height: 40}}
@@ -145,6 +149,7 @@ export default function SignUp(props) {
           <Button title='submit' onPress={()=>{Submit()}}/>
           </View>
       </View>
+      </View>
         
         </>
     )
@@ -152,7 +157,10 @@ export default function SignUp(props) {
 
 const styles=StyleSheet.create({
     container:{
-        marginBottom:30,
+       justifyContent:'center',
+       marginRight:20,
+       marginLeft:20
+
     }
 })
 

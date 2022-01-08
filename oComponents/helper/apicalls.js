@@ -1,7 +1,7 @@
-import { API } from "../../backend";
+import { API,API2 } from "../../backend";
 
 export const getContestants = () => {
-  return fetch(`http://192.168.1.108:5000/api/all/contestants`, 
+  return fetch(`${API2}/all/contestants`, 
   { method: "GET" })
     .then(response => {
       return response.json();
@@ -10,7 +10,7 @@ export const getContestants = () => {
 };
 
 export const increVote=(userId,contestantid,token)=>{
-    return fetch(`http://192.168.1.108:5000/api/user/${userId}/contestant/incre/${contestantid}`, 
+    return fetch(`${API}/user/${userId}/contestant/incre/${contestantid}`, 
     { method: "GET",
     headers: {
       Accept: "application/json",
@@ -23,7 +23,8 @@ export const increVote=(userId,contestantid,token)=>{
 }
 
 export const loadUserVotes=(token,userId)=>{
-  return fetch(`http://192.168.1.108:5000/api/user/${userId}/loadvotes`,
+  // console.log("user",userId);
+  return fetch(`${API}/user/${userId}/loadvotes`,
   {method:"GET",
   headers: {
     Accept: "application/json",
@@ -35,7 +36,7 @@ export const loadUserVotes=(token,userId)=>{
 }
 
 export const decrement=(token,userId)=>{
-  return fetch(`http://192.168.1.108:5000/api/user/${userId}/votes/decre`,
+  return fetch(`${API}/user/${userId}/votes/decre`,
   {method:"GET",
   headers: {
     Accept: "application/json",

@@ -1,4 +1,5 @@
-const API='http://192.168.1.108:5000/api/'
+import { API,API2 } from "../../../backend";
+// const API='http://192.168.1.108:5000/api/'
 
 export const signup = user => {
     return fetch(`${API}/signup`, {
@@ -34,7 +35,7 @@ export const signin=user=>{
   //otp calls
   export const getotp = email => {
     //   console.log("email",email)
-    return fetch(`${API}/user/generateotp`, {
+    return fetch(`${API2}/user/generateotp`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -50,7 +51,7 @@ export const signin=user=>{
   };
 
   export const sendotp=email=>{
-      return fetch(`${API}/user/sendotp`,{
+      return fetch(`${API2}/user/sendotp`,{
           method:"POST",
         headers:{
             Accept:"application/json",
@@ -66,7 +67,7 @@ export const signin=user=>{
 
   export const verifyotp=otpdata=>{
     //   console.log("kkkkkkkkkkooookkkkkkkk")
-    return fetch(`${API}/user/verifyotp`,{
+    return fetch(`${API2}/user/verifyotp`,{
         method:"POST",
       headers:{
           Accept:"application/json",
