@@ -20,20 +20,12 @@ export default function VoteTelugu(props) {
     )
 }
 
-const styles=StyleSheet.create({
-    container:{
-        marginBottom:30,
-    }
-})
 
 const votestyles = StyleSheet.create({
     container: {
       marginTop:20,
       padding: 20,
       flex: 1,
-      backgroundColor: 'yellow',
-    },
-    backbutton:{
-        width:100,
+      backgroundColor: '#FDFEFE',
     }
   });

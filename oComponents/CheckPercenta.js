@@ -1,7 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import React,{useState,useEffect} from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { Platform,StyleSheet, Text, View,ScrollView, Button, AppRegistry, Alert,Image} from 'react-native';
+// import { Platform,StyleSheet, Text, View,ScrollView, Button, AppRegistry, Alert,Image} from 'react-native';
+import { Platform,StyleSheet, Text, View,ScrollView, Button, AppRegistry, Alert,Image,TouchableOpacity} from 'react-native';
+
 // import VoteTelugu from './VoteTelugu'
 import { getContestants1,increVote } from './helper/apicalls';
 import { Actions } from 'react-native-router-flux';
@@ -10,6 +12,8 @@ import VoteTelugu from './VoteTelugu';
 export default function CheckPercenta() {
 
     const [contestan,setContestan]=useState([]);
+    const [flexDirection, setflexDirection] = useState("column");
+
 
     const loadAllProduct = () => {
         getContestants1().then(data => {
@@ -32,14 +36,17 @@ export default function CheckPercenta() {
         
         <Button  title="   go Back" onPress={()=>{Actions.pop()}}/>
         </View>
-        <Text>Percentage Section</Text>
+        {/* <Text>Percentage Section</Text> */}
         <View style={votestyles.container} >
             {
                 contestan.map((conte,index)=>{
                     return(
                     <>
-                    <Text>{conte.name}   =   {conte.votes}</Text>
-                    <Text></Text>
+                    <PreviewLayout
+      values={[conte.name+conte.votes]}
+      selectedValue={flexDirection}
+      setSelectedValue={setflexDirection}
+    ></PreviewLayout>
                     </>
                     )
                 })
@@ -50,21 +57,94 @@ export default function CheckPercenta() {
     )
 }
 
-const styles=StyleSheet.create({
-    container:{
-        marginBottom:30,
-    }
-})
+const PreviewLayout = ({
+  label,
+  children,
+  values,
+  selectedValue,
+  setSelectedValue,
+}) => (
+  <View style={{ padding: 10, flex: 1 }}>
+    <Text style={styles.label}>{label}</Text>
+    <View style={styles.row}>
+      {values.map((value) => (
+        <TouchableOpacity
+          key={value}
+          onPress={() => setSelectedValue(value)}
+          style={[
+            styles.button,
+            selectedValue === value && styles.selected,
+          ]}
+        >
+          <Text
+            style={[
+              styles.buttonLabel,
+              selectedValue === value && styles.selectedLabel,
+            ]}
+          >
+            {value}
+          </Text>
+        </TouchableOpacity>
+      ))}
+    </View>
+    <View style={[styles.container, { [label]: selectedValue }]}>
+      {children}
+    </View>
+  </View>
+);
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 8,
+    backgroundColor: "aliceblue",
+  },
+  box: {
+    width: 50,
+    height: 50,
+  },
+  row: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  button: {
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+    borderRadius: 4,
+    backgroundColor: "oldlace",
+    alignSelf: "flex-start",
+    marginHorizontal: "1%",
+    marginBottom: 6,
+    minWidth: "48%",
+    textAlign: "center",
+  },
+  selected: {
+    backgroundColor: "coral",
+    borderWidth: 0,
+  },
+  buttonLabel: {
+    fontSize: 12,
+    fontWeight: "500",
+    color: "coral",
+  },
+  selectedLabel: {
+    color: "white",
+  },
+  label: {
+    textAlign: "center",
+    marginBottom: 10,
+    fontSize: 24,
+  },
+});
 const votestyles = StyleSheet.create({
-    container: {
-        marginTop:20,
-      padding: 20,
-      flex: 1,
-      backgroundColor: '#fff',
-    },
-    backbutton:{
-        marginTop:20,
-        width:100,
-    }
-  });
+  container: {
+      // marginTop:20,
+    // padding: 20,
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  backbutton:{
+      marginTop:1,
+      width:100,
+  }
+});
