@@ -104,7 +104,7 @@ export default function VoteTelugu(props) {
                 marginLeft:25
               }}
               underlayColor = '#ccc'
-              onPress = { () => {castVote(item._id),Voteleft(),decre()} }
+              onPress = { ({}) => {Voteleft(),decre(),castVote(item._id)} }
             >
               <Text>{item.name}</Text>
             </TouchableHighlight>
