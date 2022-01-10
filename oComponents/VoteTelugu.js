@@ -3,7 +3,7 @@ import React,{useState,useEffect, useRef} from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Platform,StyleSheet, Text, View,ScrollView, Button, AppRegistry, Alert,Image,TouchableOpacity,FlatList} from 'react-native';
 // import VoteTelugu from './VoteTelugu'
-import { getContestants,increVote,loadUserVotes,decrement } from './helper/apicalls';
+import { getContestants1,increVote,loadUserVotes,decrement } from './helper/apicalls';
 import { Actions } from 'react-native-router-flux';
 import { Dimensions, TouchableHighlight} from 'react-native';
 import tw from 'tailwind-rn'
@@ -40,7 +40,7 @@ export default function VoteTelugu(props) {
     
 
     const loadAllContestants = async() => {
-        await getContestants().then(data => {
+        await getContestants1().then(data => {
           if (data.error) {
             console.log(data.error);
           } else {
@@ -77,10 +77,6 @@ export default function VoteTelugu(props) {
 
     return (
         <>
-        {BBMates.length==0?<>
-        <Text>votesleft : {votesleft}</Text>
-        <Button  title="Go to Votes" onPress={()=>{BBM1.current=BBM1}}/>
-        </>:
         <>
         <View >
         
@@ -108,7 +104,7 @@ export default function VoteTelugu(props) {
                 marginLeft:25
               }}
               underlayColor = '#ccc'
-              onPress = { () => alert('Yaay!') }
+              onPress = { () => {castVote(item._id),Voteleft(),decre()} }
             >
               <Text>{item.name}</Text>
             </TouchableHighlight>
@@ -121,7 +117,6 @@ export default function VoteTelugu(props) {
         </View>
         <Button color="#ffa801" title="Check Percentages" onPress={()=>{goToCheckPercenta()}}></Button>
         </>
-}
         </>
     )
 }

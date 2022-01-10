@@ -19,6 +19,7 @@ export const getContestants1 = () => {
 };
 
 export const increVote=(userId,contestantid,token)=>{
+  // console.log("deta",userId,contestantid)
     return fetch(`${API}/user/${userId}/contestant/incre/${contestantid}`, 
     { method: "GET",
     headers: {
