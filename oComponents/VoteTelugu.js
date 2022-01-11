@@ -33,7 +33,6 @@ export default function VoteTelugu(props) {
           console.log(data.error);
         } else {
           setVotesleft(data.remaining_votes);
-          setBBMates([])
         }
       })
     }
@@ -44,6 +43,7 @@ export default function VoteTelugu(props) {
           if (data.error) {
             console.log(data.error);
           } else {
+            console.log(data.contestants1)
            setBBMates(data.contestants1);
           }
         });
@@ -83,13 +83,15 @@ export default function VoteTelugu(props) {
         <Button  title="  go Back" onPress={()=>{Actions.pop()}}/>
         </View>
             <View style={tw("flex flex-row")} >
-            <View><Text>{votesleft>0?<Text>                         Votes Left:{votesleft}</Text>:<Text>No Votes Left today</Text>}</Text></View>
+            <View><Text>{votesleft>0?<Text>                                  Votes Left:{votesleft}</Text>:<Text>No Votes Left today</Text>}</Text></View>
             </View>
-            <View style={{flex:1,flexDirection:'row'}}>
+            <View style={tw("flex flex-row")}>
+            
       <View>
               <FlatList
   data={BBMates}
-  renderItem={({ item }) => {
+  numColumns={3}
+  renderItem={({ item,index }) => {
     return (
       <TouchableHighlight
               style = {{
@@ -97,25 +99,27 @@ export default function VoteTelugu(props) {
                 width: Dimensions.get('window').width * 0.2,
                 height: Dimensions.get('window').width * 0.2,
                 backgroundColor:'#f00',
-                justifyContent: 'center',
-                alignItems: 'center',
                 margin:20,
                 border:'solid',
                 marginLeft:25
               }}
-              underlayColor = '#ccc'
+              // underlayColor = '#ccc'
               onPress = { ({}) => {Voteleft(),decre(),castVote(item._id)} }
             >
-              <Text>{item.name}</Text>
+              <>
+              <Image source={{uri:item.image}} style={{ resizeMode: 'cover', width: '100%', height: '100%',borderRadius:50}}/>
+              <Text style={{alignContent:'center',marginLeft:10}}>{item.name}</Text>
+              </>
             </TouchableHighlight>
     );
   }}
   keyExtractor={conte => conte._id}
-  horizontal={true}
 />
         </View>
         </View>
+        <View style={{marginTop:100,marginLeft:15,marginRight:15,marginBottom:10}}>
         <Button color="#ffa801" title="Check Percentages" onPress={()=>{goToCheckPercenta()}}></Button>
+        </View>
         </>
         </>
     )

@@ -8,6 +8,7 @@ import { Platform,StyleSheet, Text, View,ScrollView, Button, AppRegistry, Alert,
 import { getContestants1,increVote } from './helper/apicalls';
 import { Actions } from 'react-native-router-flux';
 import VoteTelugu from './VoteTelugu';
+import PieChart from 'react-native-pie-chart';
 
 export default function CheckPercenta() {
 
@@ -43,6 +44,7 @@ export default function CheckPercenta() {
                     return(
                     <>
                     <PreviewLayout
+                    key={{index}}
       values={[conte.name+conte.votes]}
       selectedValue={flexDirection}
       setSelectedValue={setflexDirection}
