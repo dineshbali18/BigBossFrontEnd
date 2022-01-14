@@ -17,7 +17,7 @@ export default function App() {
     <>
       <Router>
           <Scene key = "root">
-          <Scene key = "beginhome" component = {BeginHome} title = "Initial" initial={true} />
+          <Scene key = "beginhome" component = {BeginHome} title = "Initial" initial={true}hideNavBar={true} />
           <Scene key = "signup" component = {SignUp} title = "SIGN UP" />
           <Scene key = "signin" component = {SignIn} title = "SIGN IN" />
           <Scene key = "home" component = {Home} title = "Home" />

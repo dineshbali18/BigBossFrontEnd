@@ -83,7 +83,7 @@ export default function VoteTelugu(props) {
         <Button  title="  go Back" onPress={()=>{Actions.pop()}}/>
         </View>
             <View style={tw("flex flex-row")} >
-            <View><Text>{votesleft>0?<Text>                                  Votes Left:{votesleft}</Text>:<Text>No Votes Left today</Text>}</Text></View>
+            <View><Text>{votesleft>0?<View><Text style={{fontStyle:'italic'}}>                                  Votes Left:{votesleft}</Text><Text>Voting closes at Midnight</Text></View>:<Text>No Votes Left today</Text>}</Text></View>
             </View>
             <View style={tw("flex flex-row")}>
             
