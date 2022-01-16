@@ -13,7 +13,7 @@ export default function SignUp(props) {
     const [verify,setVerify]=useState(0)
     // const [getotp1,setGetOtp]=useState(0);
     const [otp,setOtp]=useState("");
-    // const [getotp,setGetOtp=useState(0)
+    const [correct,setCorrect]=useState(0)
 
     const [user,setUser]=useState({
         name:"",
@@ -24,7 +24,7 @@ export default function SignUp(props) {
         success:false
     })
 
-    const {name,email,password,phoneNum}=user;
+    const {name,email,password,phoneNum,error}=user;
 
     const handleChangeName=(text)=>{
         setUser({...user,name:text})
@@ -45,10 +45,10 @@ export default function SignUp(props) {
             setUser({...user,error:"otp verification failed"})
         }
         else{
-        setUser({...user,error:false})
+        // setUser({...user,error:false})
         signup({name,email,password,phoneNum}).then(data=>{
-            if(data.error){
-                setUser({...user,error:data.error})
+            if(data.err){
+                setUser({...user,error:data.err})
             }
             else{
                 setUser({...user,
@@ -60,6 +60,7 @@ export default function SignUp(props) {
                 success:true})
                 setOtp("")
                 setVerify(0)
+                setCorrect(1)
             }
         })
     }
@@ -180,6 +181,20 @@ export default function SignUp(props) {
       <Text style={tw`text-indigo-600 font-bold ml-2`}>Otp Verified!!!!</Text>
       <Image source={require('../../images/check-mark.png')}  style={tw`h-5 w-5 mt-1 ml-4 pl-1`}/>
       </View>}
+      {/* /////// */}
+      {error?<View style={tw`flex-row`}>
+      <Text style={tw`text-indigo-600 font-bold ml-2`}>{error}  <Image source={require('../../images/cancel.png')}  style={tw`h-5 w-5 mt-1 ml-4 pl-1`}/></Text>
+      </View>:<View style={tw`flex-row`}>
+      </View>}
+      {correct==1?
+          <View style={tw`flex-row`}>
+          <Text style={tw`text-indigo-600 font-bold ml-2`}>Account Succesfully created</Text>
+          <Image source={require('../../images/check-mark.png')}  style={tw`h-5 w-5 mt-1 ml-4 pl-1`}/>
+          </View>:
+          <></>
+      }
+
+      {/* /////// */}
       <TouchableOpacity style={tw`h-10 w-32 rounded-full ml-48 border-indigo-600 bg-indigo-600 justify-center pl-10 flex-row p-2`} onPress={()=>{Submit()}} >
           <Text style={tw`text-white font-bold`}>  SignUp </Text>
           <Image source={require('../../images/next.png')} style={tw`h-5 w-5 mt-1 ml-1`}/>

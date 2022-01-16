@@ -13,7 +13,7 @@ export const signup = user => {
       .then(response => {
         return response.json();
       })
-      .catch(err => console.log(err));
+      .catch(err =>{ console.log("<<<<<<<<<<<<<<<"),console.log(err),console.log("<<<<<<<<<<<<<<<")});
   };
 
 export const signin=user=>{
@@ -60,7 +60,7 @@ export const signin=user=>{
         body:JSON.stringify(email)
     })
     .then(response => {
-        // return response.json();
+        return response.json();
       })
       .catch(err => console.log(err));
   }

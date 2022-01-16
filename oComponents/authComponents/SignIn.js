@@ -22,7 +22,7 @@ export default function SignIn(props) {
         success:false
     })
 
-    const {email,password}=user;
+    const {email,password,error}=user;
 
     const handleChangeEmail=(text)=>{
         setUser({...user,email:text})
@@ -105,6 +105,10 @@ export default function SignIn(props) {
         value={password}
       />
       </View>
+      {error?<View style={tw`flex-row`}>
+      <Text style={tw`text-indigo-600 font-bold ml-2`}>{error}  <Image source={require('../../images/cancel.png')}  style={tw`h-5 w-5 mt-1 ml-4 pl-1`}/></Text>
+      </View>:<View style={tw`flex-row`}>
+      </View>}
       <Text style={tw`text-indigo-600 font-bold ml-2`}>Forgot password ?</Text>
       <TouchableOpacity style={tw`h-10 w-32 rounded-full ml-48 border-indigo-600 bg-indigo-600 justify-center pl-10 flex-row p-2`} onPress={()=>{onSubmit()}} >
           <Text style={tw`text-white font-bold`}>  SignIn </Text>
