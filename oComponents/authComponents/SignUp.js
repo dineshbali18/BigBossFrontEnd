@@ -10,10 +10,13 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 export default function SignUp(props) {
-    const [verify,setVerify]=useState(0)
+    const [verify,setVerify]=useState('')
+    const [verify1,setVerify1]=useState(0)
     // const [getotp1,setGetOtp]=useState(0);
     const [otp,setOtp]=useState("");
     const [correct,setCorrect]=useState(0)
+
+    const [otpClick,setotpClick]=useState(0);
 
     const [user,setUser]=useState({
         name:"",
@@ -41,7 +44,7 @@ export default function SignUp(props) {
 
     const Submit=()=>{
 
-        if(verify==0){
+        if(verify1==0){
             setUser({...user,error:"otp verification failed"})
         }
         else{
@@ -79,22 +82,19 @@ export default function SignUp(props) {
             if(data.error){
                 console.log(data.error);
             }});
-        sendotp({email}).then(data=>{
-                if(data.error){
-                    console.log(data.error);
-                }});
     }
     
     const verifyOtp=()=>{
         // console.log("lllooolll")
         verifyotp({email,otp}).then(data=>{
             if(data.error){
-                console.log(data.error);
+                setVerify(data.error);
+                setVerify1(0)
             }
-            else{
+            if(data.sucess){
                 // console.log("----------------")
-                setVerify(1);
-                // console.log("----------------")
+                setVerify(data.sucess);
+                setVerify1(1)
             }
         });
     }
@@ -127,18 +127,21 @@ export default function SignUp(props) {
         defaultValue="text"
         value={email.toString()}
       />
-      <TouchableOpacity style={tw`mx-2 my-1 flex-row`} onPress={()=>{console.log(1),getOtp(),sendOtp()}} >
-      {otp.length==0?
+      
+      {otpClick==0?
+      <TouchableOpacity style={tw`mx-2 my-1 flex-row`} onPress={()=>{getOtp(),setotpClick(1)}} >
+      <View style={tw`bg-indigo-600 rounded-full mb-0.5 `}>
+          <Text style={tw`text-white font-bold mt-1`}>  Generate Otp  </Text>
+          </View>
+          </TouchableOpacity>
+          :
+          <TouchableOpacity style={tw`mx-2 my-1 flex-row`} onPress={()=>{sendOtp()}} >
       <View style={tw`bg-indigo-600 rounded-full mb-0.5 `}>
           <Text style={tw`text-white font-bold mt-1`}>  Get Otp  </Text>
           </View>
-          :
-          <View style={tw`bg-indigo-600 rounded-full mt-1 mb-1 `} >
-          <Text style={tw`text-white font-bold`} >  Resend Otp </Text>
-          </View>
+          </TouchableOpacity>
 
         }
-          </TouchableOpacity>
       </View>
       <View style={tw`border-black flex-row border-2 border-indigo-600 rounded-full mt-2`}>
         <Image source={require('../../images/otp.png')}  style={tw`h-6 w-5 mt-3 ml-4 pl-1`}/>
@@ -174,12 +177,16 @@ export default function SignUp(props) {
       />
       </View>
       <View>
-          {verify==0?<View style={tw`flex-row`}>
-      <Text style={tw`text-indigo-600 font-bold ml-2`}>Otp Not Verified!!!!</Text>
-      <Image source={require('../../images/cancel.png')}  style={tw`h-5 w-5 mt-1 ml-4 pl-1`}/>
+          {verify1==0?<View style={tw`flex-row`}>
+      <Text style={tw`text-indigo-600 font-bold ml-2`}>{verify}</Text>
+      {verify!=''?
+      <Image source={require('../../images/cancel.png')}  style={tw`h-5 w-5 mt-1 ml-4 pl-1`}/>:<></>
+    }
       </View>:<View style={tw`flex-row`}>
-      <Text style={tw`text-indigo-600 font-bold ml-2`}>Otp Verified!!!!</Text>
-      <Image source={require('../../images/check-mark.png')}  style={tw`h-5 w-5 mt-1 ml-4 pl-1`}/>
+      <Text style={tw`text-indigo-600 font-bold ml-2`}>{verify}</Text>
+      {verify!=''?
+      <Image source={require('../../images/check-mark.png')}  style={tw`h-5 w-5 mt-1 ml-4 pl-1`}/>:<></>
+    }
       </View>}
       {/* /////// */}
       {error?<View style={tw`flex-row`}>

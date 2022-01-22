@@ -65,18 +65,20 @@ export const signin=user=>{
       .catch(err => console.log(err));
   }
 
-  export const verifyotp=otpdata=>{
-    //   console.log("kkkkkkkkkkooookkkkkkkk")
+  export const verifyotp=(email,otpdata)=>{
+      console.log("kkkkkkkkkkooookkkkkkkk")
+      console.log(email,otpdata);
     return fetch(`${API2}/user/verifyotp`,{
         method:"POST",
       headers:{
           Accept:"application/json",
           "Content-Type":"application/json"
       },
-      body:JSON.stringify(otpdata)
+      body:JSON.stringify({email,otpdata})
   })
   .then(response => {
-      return response.text();
+    // console.log(response);
+      return response.json();
     })
     .catch(err => console.log(err));
 }
