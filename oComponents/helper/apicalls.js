@@ -18,6 +18,17 @@ export const getContestants1 = () => {
     .catch(err => console.log(err));
 };
 
+export const getNamesWithPercentages=()=>{
+  return fetch(`${API}/user/getpercentages`, 
+  { method: "GET" })
+    .then(response => {
+      // console.log(response);
+      return response.json();
+    })
+    .catch(err => console.log(err));
+
+}
+
 export const increVote=(userId,contestantid,token)=>{
   // console.log("deta",userId,contestantid)
     return fetch(`${API}/user/${userId}/contestant/incre/${contestantid}`, 

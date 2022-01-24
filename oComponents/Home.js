@@ -9,8 +9,8 @@ import { focusProps } from 'react-native-web/dist/cjs/modules/forwardedProps';
 
 
 export default function Home(props) {
-  console.log("/////////////////////////////")
-  console.log(props);
+  // console.log("/////////////////////////////")
+  // console.log(props);
   const[token,setToken]=useState(props.token.current);
   const[userId,setUserId]=useState(props.userId.current)
 

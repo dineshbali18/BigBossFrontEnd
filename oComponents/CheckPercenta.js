@@ -1,143 +1,99 @@
 import { StatusBar } from 'expo-status-bar';
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useRef} from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
 // import { Platform,StyleSheet, Text, View,ScrollView, Button, AppRegistry, Alert,Image} from 'react-native';
-import { Platform,StyleSheet, Text, View,ScrollView, Button, AppRegistry, Alert,Image,TouchableOpacity} from 'react-native';
+import {Dimensions, Platform,StyleSheet, Text, View,ScrollView, Button, AppRegistry, Alert,Image,TouchableOpacity} from 'react-native';
+import HorizontalBarGraph from '@chartiful/react-native-horizontal-bar-graph'
+import tw from 'tailwind-rn'
 
 // import VoteTelugu from './VoteTelugu'
-import { getContestants1,increVote } from './helper/apicalls';
+import { getNamesWithPercentages} from './helper/apicalls';
 import { Actions } from 'react-native-router-flux';
 import VoteTelugu from './VoteTelugu';
-import PieChart from 'react-native-pie-chart';
+
+const screenWidth = Dimensions.get("window").width;
 
 export default function CheckPercenta() {
 
-    const [contestan,setContestan]=useState([]);
-    const [flexDirection, setflexDirection] = useState("column");
 
+    const names=useRef([])
+    const percentages=useRef([])
+
+    const goToCheckPercenta = () => {
+      Actions.votetelugu()
+   }
 
     const loadAllProduct = () => {
-        getContestants1().then(data => {
+        getNamesWithPercentages().then(data => {
+          // console.log(data);
           if (data.error) {
             console.log(data.error);
           } else {
-            //   console.log(data);
-            setContestan(data.contestants1);
+            names.current=data.names
+            percentages.current=data.percentages
           }
         });
       };
+
+        
 
     useEffect(()=>{
         loadAllProduct();
     },[]);
 
+
     return (
-        <>
-        <View style={votestyles.backbutton}>
+      <>
+      <View >
         
-        <Button  title="   go Back" onPress={()=>{Actions.pop()}}/>
+        <Button  title="  go Back" onPress={()=>{Actions.pop()}}/>
         </View>
-        {/* <Text>Percentage Section</Text> */}
-        <View style={votestyles.container} >
-            {
-                contestan.map((conte,index)=>{
-                    return(
-                    <>
-                    <PreviewLayout
-                    key={{index}}
-      values={[conte.name+conte.votes]}
-      selectedValue={flexDirection}
-      setSelectedValue={setflexDirection}
-    ></PreviewLayout>
-                    </>
-                    )
-                })
-            }
-        </View>
-        
-        </>
-    )
+ <View>
+    <HorizontalBarGraph
+      data={percentages.current}
+      labels={names.current}
+      width={375}
+      height={350}
+      barRadius={15}
+      barColor='green'
+      baseConfig={{
+        hasYAxisBackgroundLines: false,
+        xAxisLabelStyle: {
+          rotation: 0,
+          fontSize: 12,
+          width: 70,
+          yOffset: 4,
+          xOffset: -15
+        },
+        yAxisLabelStyle: {
+          rotation: 30,
+          fontSize: 13,
+          prefix: '(%)',
+          position: 'bottom',
+          xOffset: 15,
+          decimals: 2,
+          height: 100
+        }
+      }}
+      style={styles.chart}
+    />
+  </View>
+</>
+  );
 }
 
-const PreviewLayout = ({
-  label,
-  children,
-  values,
-  selectedValue,
-  setSelectedValue,
-}) => (
-  <View style={{ padding: 10, flex: 1 }}>
-    <Text style={styles.label}>{label}</Text>
-    <View style={styles.row}>
-      {values.map((value) => (
-        <TouchableOpacity
-          key={value}
-          onPress={() => setSelectedValue(value)}
-          style={[
-            styles.button,
-            selectedValue === value && styles.selected,
-          ]}
-        >
-          <Text
-            style={[
-              styles.buttonLabel,
-              selectedValue === value && styles.selectedLabel,
-            ]}
-          >
-            {value}
-          </Text>
-        </TouchableOpacity>
-      ))}
-    </View>
-    <View style={[styles.container, { [label]: selectedValue }]}>
-      {children}
-    </View>
-  </View>
-);
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: 8,
-    backgroundColor: "aliceblue",
-  },
-  box: {
-    width: 50,
-    height: 50,
-  },
-  row: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-  },
-  button: {
-    paddingHorizontal: 8,
-    paddingVertical: 6,
-    borderRadius: 4,
-    backgroundColor: "oldlace",
-    alignSelf: "flex-start",
-    marginHorizontal: "1%",
-    marginBottom: 6,
-    minWidth: "48%",
-    textAlign: "center",
-  },
-  selected: {
-    backgroundColor: "coral",
-    borderWidth: 0,
-  },
-  buttonLabel: {
-    fontSize: 12,
-    fontWeight: "500",
-    color: "coral",
-  },
-  selectedLabel: {
-    color: "white",
-  },
-  label: {
-    textAlign: "center",
-    marginBottom: 10,
-    fontSize: 24,
-  },
+  chart: {
+    marginBottom: 30,
+    padding: 10,
+    paddingTop: 20,
+    borderRadius: 20,
+    width: 375,
+    backgroundColor: 'pink'
+  }
 });
+
 const votestyles = StyleSheet.create({
   container: {
       // marginTop:20,

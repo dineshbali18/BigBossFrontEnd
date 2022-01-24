@@ -43,7 +43,7 @@ export default function VoteTelugu(props) {
           if (data.error) {
             console.log(data.error);
           } else {
-            console.log(data.contestants1)
+            // console.log(data.contestants1)
            setBBMates(data.contestants1);
           }
         });
