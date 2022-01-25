@@ -17,12 +17,12 @@ export default function App() {
     <>
       <Router>
           <Scene key = "root">
-          <Scene key = "beginhome" component = {BeginHome} title = "Initial" hideNavBar={true} />
+          <Scene key = "beginhome" component = {BeginHome} title = "Initial" initial={true} hideNavBar={true} />
           <Scene key = "signup" component = {SignUp} title = "SIGN UP" />
           <Scene key = "signin" component = {SignIn} title = "SIGN IN" />
           <Scene key = "home" component = {Home} title = "Home" />
           <Scene key = "votetelugu" component = {VoteTelugu} title = "Vote Telugu" />
-          <Scene key="checkpercenta" component={CheckPercenta} title="Check Percentage" initial={true} />
+          <Scene key="checkpercenta" component={CheckPercenta} title="Check Percentage"  />
        </Scene>
     </Router>
     </>
