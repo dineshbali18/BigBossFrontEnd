@@ -11,6 +11,7 @@ import tw from 'tailwind-rn'
 import { getNamesWithPercentages} from './helper/apicalls';
 import { Actions } from 'react-native-router-flux';
 import VoteTelugu from './VoteTelugu';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -51,6 +52,7 @@ export default function CheckPercenta() {
         </View>
  <View> 
    {checkD==1?
+   <SafeAreaView>
    <ScrollView>
     <HorizontalBarGraph
       data={percentages}
@@ -80,7 +82,8 @@ export default function CheckPercenta() {
       }}
       style={styles.chart}
     />
-    </ScrollView>:<><Text>Loading..........</Text></>}
+    </ScrollView>
+    </SafeAreaView>:<><Text>Loading..........</Text></>}
   </View>
 </>
   );
