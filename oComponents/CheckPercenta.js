@@ -4,6 +4,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 // import { Platform,StyleSheet, Text, View,ScrollView, Button, AppRegistry, Alert,Image} from 'react-native';
 import {Dimensions, Platform,StyleSheet, Text, View,ScrollView, Button, AppRegistry, Alert,Image,TouchableOpacity} from 'react-native';
 import HorizontalBarGraph from '@chartiful/react-native-horizontal-bar-graph'
+// const HorizontalBarGraph = React.lazy(() => import('@chartiful/react-native-horizontal-bar-graph'));
 import tw from 'tailwind-rn'
 
 // import VoteTelugu from './VoteTelugu'
@@ -16,21 +17,21 @@ const screenWidth = Dimensions.get("window").width;
 export default function CheckPercenta() {
 
 
-    const names=useRef([])
-    const percentages=useRef([])
+    const [names,setNames]=useState([])
+    const [percentages,setPercentages]=useState([])
+    const [checkD,setCheckD]=useState(0)
 
-    const goToCheckPercenta = () => {
-      Actions.votetelugu()
-   }
 
-    const loadAllProduct = () => {
-        getNamesWithPercentages().then(data => {
+    const loadAllProduct = async() => {
+        await getNamesWithPercentages().then(data => {
           // console.log(data);
           if (data.error) {
             console.log(data.error);
           } else {
-            names.current=data.names
-            percentages.current=data.percentages
+            setNames(data.names)
+            setPercentages(data.percentages)
+            // console.log("hiih")
+            setCheckD(1)
           }
         });
       };
@@ -48,20 +49,22 @@ export default function CheckPercenta() {
         
         <Button  title="  go Back" onPress={()=>{Actions.pop()}}/>
         </View>
- <View>
+ <View> 
+   {checkD==1?
+   <ScrollView>
     <HorizontalBarGraph
-      data={percentages.current}
-      labels={names.current}
-      width={375}
+      data={percentages}
+      labels={names}
+      width={320}
       height={350}
       barRadius={15}
-      barColor='green'
+      barColor='#FF5C58'
       baseConfig={{
         hasYAxisBackgroundLines: false,
         xAxisLabelStyle: {
           rotation: 0,
           fontSize: 12,
-          width: 70,
+          width: 50,
           yOffset: 4,
           xOffset: -15
         },
@@ -70,13 +73,14 @@ export default function CheckPercenta() {
           fontSize: 13,
           prefix: '(%)',
           position: 'bottom',
-          xOffset: 15,
+          xOffset: 5,
           decimals: 2,
           height: 100
         }
       }}
       style={styles.chart}
     />
+    </ScrollView>:<><Text>Loading..........</Text></>}
   </View>
 </>
   );
@@ -90,7 +94,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     borderRadius: 20,
     width: 375,
-    backgroundColor: 'pink'
+    backgroundColor: '#B1E693'
   }
 });
 
