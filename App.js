@@ -11,12 +11,17 @@ import { Router, Scene } from 'react-native-router-flux'
 import BeginHome from './oComponents/authComponents/BeginHome'
 import SignIn from './oComponents/authComponents/SignIn'
 import SignUp from './oComponents/authComponents/SignUp'
+import CommonChat from './oComponents/chatCompo/CommonChat';
+import LoadNames from './oComponents/chatCompo/LoadNames';
+
 
 export default function App() {
   return (
     <>
       <Router>
           <Scene key = "root">
+          <Scene key = "loadnames" component = {LoadNames} title = "Initial"  hideNavBar={true} />
+          <Scene key = "commonchat" component = {CommonChat} title = "Initial"  hideNavBar={true} />
           <Scene key = "beginhome" component = {BeginHome} title = "Initial" initial={true} hideNavBar={true} />
           <Scene key = "signup" component = {SignUp} title = "SIGN UP" />
           <Scene key = "signin" component = {SignIn} title = "SIGN IN" />

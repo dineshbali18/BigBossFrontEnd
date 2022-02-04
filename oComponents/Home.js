@@ -6,6 +6,7 @@ import { StyleSheet, Text, View,ScrollView, Button, AppRegistry, Alert} from 're
 import VoteTelugu from './VoteTelugu'
 import { Actions } from 'react-native-router-flux';
 import { focusProps } from 'react-native-web/dist/cjs/modules/forwardedProps';
+import LoadNames from './chatCompo/LoadNames';
 
 
 export default function Home(props) {
@@ -42,6 +43,8 @@ export default function Home(props) {
 <Text/>
 </View>
 <Button color="#ff5c5c"  title="   Vote   " onPress={()=>{console.log("dinu home props"),Actions.votetelugu({token,userId})}}/>
+<Button color="#ff5c5c"  title="   Chat  " onPress={()=>{console.log("dinu home props"),Actions.loadnames({token,userId})}}/>
+
 
       <StatusBar style="auto" />
       </>
