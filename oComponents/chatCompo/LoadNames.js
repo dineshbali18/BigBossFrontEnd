@@ -28,7 +28,7 @@ export default function LoadNames(props) {
     },[])
 
     const gotoChat=(r_name)=>{
-        Actions.commonchat({userId,r_name})
+        Actions.commonchat({token,userId,r_name})
     }
 
     return (

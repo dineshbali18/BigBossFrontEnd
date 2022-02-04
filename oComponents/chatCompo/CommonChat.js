@@ -16,11 +16,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 export default function CommonChat(props) {
   // console.log(props.userId)//user id 
   // console.log(props.r_name)//room name
-
+const[token,setToken]=useState(props.token);
+  const[userId,setUserId]=useState(props.userId)
 
 
   const[msg,setMsg]=useState("");
  const  [msgList,setMsgList]=useState([]);
+ 
 
   useEffect(() => {
    socket=io(Connection_Port,{transports: ['websocket', 'polling', 'flashsocket']})
@@ -62,7 +64,7 @@ export default function CommonChat(props) {
   }
 
   const goback=()=>{
-      Actions.loadnames()
+      Actions.loadnames({token,userId})
   }
 
   return (
@@ -86,7 +88,7 @@ export default function CommonChat(props) {
         defaultValue="text"
         value={msg}
       />
-      <TouchableOpacity style={tw`h-10 w-32 rounded-full ml-48 border-indigo-600 bg-indigo-600 justify-center pl-10 flex-row p-2`} onPress={()=>{sendMessage()}} >
+      <TouchableOpacity style={tw`h-10 w-32 rounded-full ml-48 border-indigo-600 bg-indigo-600 justify-center pl-10 flex-row p-2`} onPress={()=>{msg.length!=0&& sendMessage()}} >
           <Text style={tw`text-white font-bold`}>  send </Text>
           {/* <Image source={require('../../images/next.png')} style={tw`h-5 w-5 mt-1 ml-1`}/> */}
           </TouchableOpacity>
