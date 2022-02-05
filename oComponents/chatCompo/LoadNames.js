@@ -11,7 +11,7 @@ const Connection_Port ='https://chatservicebigboss.herokuapp.com/';
 let socket;
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
-const {getRooms}=require('./helper/chat')
+const {getRooms,getNameById}=require('./helper/chat')
 
 
 export default function LoadNames(props) {
@@ -19,27 +19,35 @@ export default function LoadNames(props) {
     const [rooms,setRooms]=useState([])
     const[token,setToken]=useState(props.token);
   const[userId,setUserId]=useState(props.userId)
+ const [name,setName]=useState('')
+
 
     useEffect(()=>{
         getRooms().then((data)=>{
             // console.log(data)
             setRooms(data);
         })
+  getNameById(userId)
+      .then(data=>{
+        //   console.log(data)
+          setName(data.name);
+        }
+      )
     },[])
 
     const gotoChat=(r_name)=>{
-        Actions.commonchat({token,userId,r_name})
+        Actions.commonchat({name,userId,r_name})
     }
 
     return (
         <>
         <SafeAreaView>
             <Text>heheh................</Text>
-            <Text>{userId}</Text>
+            <Text>Hi,{name}</Text>
             {rooms.map((room,index)=>{
                 return(
                     <TouchableOpacity key={index} style={tw`h-10 w-32 rounded-full ml-48 border-indigo-600 bg-indigo-600 justify-center pl-10 flex-row p-2`} onPress={()=>{gotoChat(room.name)}} >
-                    <Text style={tw`text-white font-bold`}>{  room.name}</Text>
+                    <Text style={tw`text-white font-bold`}>{  room.title}</Text>
                     {/* <Image source={require('../../images/next.png')} style={tw`h-5 w-5 mt-1 ml-1`}/> */}
                     </TouchableOpacity>
                 )

@@ -12,16 +12,22 @@ let socket;
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+const {getNameById}=require('./helper/chat')
+
 
 export default function CommonChat(props) {
   // console.log(props.userId)//user id 
   // console.log(props.r_name)//room name
+  // console.log(props)
 const[token,setToken]=useState(props.token);
   const[userId,setUserId]=useState(props.userId)
+ const [name,setName]=useState('')
+
 
 
   const[msg,setMsg]=useState("");
  const  [msgList,setMsgList]=useState([]);
+//  const [name,setName]=useState('')
  
 
   useEffect(() => {
@@ -41,8 +47,15 @@ const[token,setToken]=useState(props.token);
   socket.emit('get-datadb',props.r_name)
 }
 
+
   useEffect(()=>{
     connectToRoom();
+    getNameById(userId)
+      .then(data=>{
+          // console.log(data)
+          setName(data.name);
+        }
+      )
     socket.on('recieve-datadb',(data)=>{
       setMsgList(data[0].msgs)
     })
@@ -54,7 +67,7 @@ const[token,setToken]=useState(props.token);
     let messageContent={
       room:props.r_name,
       content:{
-      author:props.userId,
+      author:name,
       message:msg
       } 
     }
@@ -72,7 +85,7 @@ const[token,setToken]=useState(props.token);
       <SafeAreaView>
       <Text>chating App{msgList.length}</Text>
       <View>
-        {/* {msgList} */}
+      {/* {console.log(name)} */}
           {msgList.map((payload,index)=>{
             // console.log(payload)
               return(
