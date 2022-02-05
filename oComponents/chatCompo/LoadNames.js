@@ -15,19 +15,18 @@ const {getRooms,getNameById}=require('./helper/chat')
 
 
 export default function LoadNames(props) {
-    // console.log(props)
+    console.log(props.userId)
     const [rooms,setRooms]=useState([])
-    const[token,setToken]=useState(props.token);
-  const[userId,setUserId]=useState(props.userId)
+    const token=useRef(props.token);
+  const userId=useRef(props.userId)
  const [name,setName]=useState('')
 
 
     useEffect(()=>{
         getRooms().then((data)=>{
-            // console.log(data)
             setRooms(data);
         })
-  getNameById(userId)
+  getNameById(props.userId)
       .then(data=>{
         //   console.log(data)
           setName(data.name);
