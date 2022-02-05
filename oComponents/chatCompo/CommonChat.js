@@ -19,8 +19,8 @@ export default function CommonChat(props) {
   // console.log(props.userId)//user id 
   // console.log(props.r_name)//room name
   // console.log(props)
-const[token,setToken]=useState(props.token);
-  const[userId,setUserId]=useState(props.userId)
+const token=useRef(props.token);
+  const userId=useRef(props.userId)
  const [name,setName]=useState('')
 
 
@@ -77,12 +77,13 @@ const[token,setToken]=useState(props.token);
   }
 
   const goback=()=>{
-      Actions.loadnames({token,userId})
+      Actions.home({token,userId})
   }
 
   return (
       <>
       <SafeAreaView>
+      <Button  title="  go Back" onPress={()=>{goback()}}/>
       <Text>chating App{msgList.length}</Text>
       <View>
       {/* {console.log(name)} */}

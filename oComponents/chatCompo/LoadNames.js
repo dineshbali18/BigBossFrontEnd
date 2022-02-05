@@ -42,7 +42,7 @@ export default function LoadNames(props) {
     return (
         <>
         <SafeAreaView>
-            <Text>heheh................</Text>
+        <Button  title="  go Back" onPress={()=>{Actions.home({token,userId})}}/>
             <Text>Hi,{name}</Text>
             {rooms.map((room,index)=>{
                 return(
