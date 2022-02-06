@@ -20,7 +20,7 @@ export default function App() {
     <>
       <Router>
           <Scene key = "root">
-          <Scene key = "loadnames" component = {LoadNames} title = "Initial"  hideNavBar={true} />
+          <Scene key = "loadnames" component = {LoadNames} title = "Initial"   hideNavBar={true} />
           <Scene key = "commonchat" component = {CommonChat} title = "Initial"  hideNavBar={true} />
           <Scene key = "beginhome" component = {BeginHome} title = "Initial" initial={true} hideNavBar={true} />
           <Scene key = "signup" component = {SignUp} title = "SIGN UP" />

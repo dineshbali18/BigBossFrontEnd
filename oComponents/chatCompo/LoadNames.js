@@ -15,7 +15,7 @@ const {getRooms,getNameById}=require('./helper/chat')
 
 
 export default function LoadNames(props) {
-    console.log(props.userId)
+    // console.log(props.userId)
     const [rooms,setRooms]=useState([])
     const token=useRef(props.token);
   const userId=useRef(props.userId)
@@ -34,23 +34,30 @@ export default function LoadNames(props) {
       )
     },[])
 
-    const gotoChat=(r_name)=>{
-        Actions.commonchat({name,userId,r_name})
+    const gotoChat=(r_name,r_title)=>{
+        Actions.commonchat({name,userId,r_name,r_title})
     }
 
     return (
         <>
         <SafeAreaView>
         <Button  title="  go Back" onPress={()=>{Actions.home({token,userId})}}/>
-            <Text>Hi,{name}</Text>
+            <Text style={tw`mt-2 font-bold ml-4`}>Hi,{name}</Text>
+            <View>
+                <ScrollView>
             {rooms.map((room,index)=>{
                 return(
-                    <TouchableOpacity key={index} style={tw`h-10 w-32 rounded-full ml-48 border-indigo-600 bg-indigo-600 justify-center pl-10 flex-row p-2`} onPress={()=>{gotoChat(room.name)}} >
-                    <Text style={tw`text-white font-bold`}>{  room.title}</Text>
-                    {/* <Image source={require('../../images/next.png')} style={tw`h-5 w-5 mt-1 ml-1`}/> */}
+                    <View key={index} style={tw`border-black border-2 border-yellow-600 mt-4 h-24 m-4`}>
+                        <Text style={tw`mt-2 font-bold`}>         Title:  {room.title}</Text>
+                    <TouchableOpacity key={index} style={tw`h-10 w-32 rounded-full ml-44 border-indigo-600 bg-indigo-600 justify-center pl-10 flex-row p-2 mt-2`} onPress={()=>{gotoChat(room.name,room.title)}} >
+                    <Text style={tw`text-white font-bold`}>join room</Text>
+                    <Image source={require('../../images/next.png')} style={tw`h-5 w-5 mt-1 ml-1`}/>
                     </TouchableOpacity>
+                    </View>
                 )
             })}
+            </ScrollView>
+            </View>
         </SafeAreaView>
         </>
     )

@@ -16,18 +16,12 @@ const {getNameById}=require('./helper/chat')
 
 
 export default function CommonChat(props) {
-  // console.log(props.userId)//user id 
-  // console.log(props.r_name)//room name
-  // console.log(props)
+
 const token=useRef(props.token);
-  const userId=useRef(props.userId)
+  const [userId,setUserId]=useState(props.userId.current)
  const [name,setName]=useState('')
-
-
-
-  const[msg,setMsg]=useState("");
+ const[msg,setMsg]=useState("");
  const  [msgList,setMsgList]=useState([]);
-//  const [name,setName]=useState('')
  
 
   useEffect(() => {
@@ -77,24 +71,29 @@ const token=useRef(props.token);
   }
 
   const goback=()=>{
-      Actions.home({token,userId})
+      Actions.loadnames({token,userId})
   }
 
   return (
       <>
       <SafeAreaView>
       <Button  title="  go Back" onPress={()=>{goback()}}/>
-      <Text>chating App{msgList.length}</Text>
-      <View>
+      <Text style={tw`ml-10 font-bold text-2xl`}> {props.r_title}</Text>
+      <View style={tw`m-4 h-5/6`}>
+      <ScrollView >
       {/* {console.log(name)} */}
           {msgList.map((payload,index)=>{
             // console.log(payload)
               return(
-                  <Text>{payload.author}:{payload.message}</Text>
+                <View  style={tw`border-black border-2 border-yellow-600 mt-4 h-8 mx-4  flex-row`}>
+                  <Text style={tw`text-base text-green-500 font-bold`}>{payload.author} </Text>
+                  <Text style={tw`text-base font-bold`}>  {payload.message}</Text>
+                </View>
               )
           })}
-      </View>
-      <View>
+          </ScrollView>
+      
+      <View style={tw`flex-row top-0 bottom-0 right-0`}>
       <TextInput
         style={{height: 40,borderColor:"orange",borderRadius:50,paddingLeft:20}}
         placeholder="Enter message"
@@ -102,15 +101,16 @@ const token=useRef(props.token);
         defaultValue="text"
         value={msg}
       />
-      <TouchableOpacity style={tw`h-10 w-32 rounded-full ml-48 border-indigo-600 bg-indigo-600 justify-center pl-10 flex-row p-2`} onPress={()=>{msg.length!=0&& sendMessage()}} >
-          <Text style={tw`text-white font-bold`}>  send </Text>
+      <TouchableOpacity style={tw`h-10 w-32 rounded-full ml-28 border-indigo-600 bg-indigo-600 justify-center pl-10 flex-row p-2`} onPress={()=>{msg.length!=0&& sendMessage()}} >
+          <Text style={tw`text-white font-bold`}>send</Text>
           {/* <Image source={require('../../images/next.png')} style={tw`h-5 w-5 mt-1 ml-1`}/> */}
           </TouchableOpacity>
       </View>
-      <TouchableOpacity style={tw`h-10 w-32 rounded-full ml-48 border-indigo-600 bg-indigo-600 justify-center pl-10 flex-row p-2`} onPress={()=>{goback()}} >
-          <Text style={tw`text-white font-bold`}>  go back </Text>
-          <Image source={require('../../images/next.png')} style={tw`h-5 w-5 mt-1 ml-1`}/>
-          </TouchableOpacity>
+      </View>
+      {/* <TouchableOpacity style={tw`h-10 w-32 rounded-full ml-48 border-indigo-600 bg-indigo-600 justify-center pl-10 flex-row p-2`} onPress={()=>{goback()}} > */}
+          {/* <Text style={tw`text-white font-bold`}>  go back </Text> */}
+          {/* <Image source={require('../../images/next.png')} style={tw`h-5 w-5 mt-1 ml-1`}/> */}
+          {/* </TouchableOpacity> */}
       </SafeAreaView>
      </>
   );
