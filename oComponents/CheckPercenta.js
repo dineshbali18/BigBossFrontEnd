@@ -83,7 +83,8 @@ export default function CheckPercenta() {
       style={styles.chart}
     />
     </ScrollView>
-    </SafeAreaView>:<><Text>Loading..........</Text></>}
+    </SafeAreaView>:<><View><Text style={{color:'green', height:'20%',fontWeight:'bold',marginLeft:'40%',marginTop:'50%'}} >Loading..........</Text>    
+    </View></>}
   </View>
 </>
   );

@@ -20,10 +20,13 @@ export default function LoadNames(props) {
     const token=useRef(props.token);
   const userId=useRef(props.userId)
  const [name,setName]=useState('')
+ const [load,setLoad]=useState(0);
 
 
     useEffect(()=>{
+        setLoad(1);
         getRooms().then((data)=>{
+            setLoad(0);
             setRooms(data);
         })
   getNameById(props.userId)
@@ -40,9 +43,11 @@ export default function LoadNames(props) {
 
     return (
         <>
+        <>
         <SafeAreaView>
         <Button  title="  go Back" onPress={()=>{Actions.home({token,userId})}}/>
             <Text style={tw`mt-2 font-bold ml-4`}>Hi,{name}</Text>
+            {load==0?
             <View>
                 <ScrollView>
             {rooms.map((room,index)=>{
@@ -57,8 +62,14 @@ export default function LoadNames(props) {
                 )
             })}
             </ScrollView>
-            </View>
+            </View>:
+        <>
+        <View style={{backgroundColor:"snow",height:'100%' , width:'100%'}}>
+      <Image source={require('../../images/Infinity.gif')} style={tw`h-12 w-12 mt-3 ml-40 mt-48 pl-1`}/>
+      </View>
+        </>}
         </SafeAreaView>
+        </>
         </>
     )
 }

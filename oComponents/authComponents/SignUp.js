@@ -15,7 +15,7 @@ export default function SignUp(props) {
     // const [getotp1,setGetOtp]=useState(0);
     const [otp,setOtp]=useState("");
     const [correct,setCorrect]=useState(0)
-
+    const [load,setLoad]=useState(0);
     const [otpClick,setotpClick]=useState(0);
 
     const [user,setUser]=useState({
@@ -43,17 +43,20 @@ export default function SignUp(props) {
     }
 
     const Submit=()=>{
-
+        setLoad(1);
         if(verify1==0){
+        setLoad(0);
             setUser({...user,error:"otp verification failed"})
         }
         else{
         // setUser({...user,error:false})
         signup({name,email,password,phoneNum}).then(data=>{
             if(data.err){
+        setLoad(0);
                 setUser({...user,error:data.err})
             }
             else{
+                setLoad(0);
                 setUser({...user,
                 name:"",
                 email:"",
@@ -101,17 +104,19 @@ export default function SignUp(props) {
 
     return (
         <>
+        {load==0?
+        <>
         <View >
         <Button  title="   go Back" onPress={()=>{Actions.pop()}}/>
         </View>
-        <View >
+        <View style={{width:'100%'}} >
             <Image source={require('../../images/signup11.png')} style={tw`h-36 w-96 mt-1 mb-2`}/>
         </View>
 <View style={tw`ml-6 mr-4 mt-0`}>
             <View style={tw`border-black flex-row border-2 border-indigo-600 rounded-full`}>
         <Image source={require('../../images/profile-user.png')}  style={tw`h-5 w-5 mt-3 ml-4 pl-1`}/>
       <TextInput
-        style={{height: 40,borderColor:"orange",borderRadius:50,paddingLeft:20}}
+        style={{height: 40,width:'100%',borderColor:"orange",borderRadius:50,paddingLeft:10}}
         placeholder="Enter Your Name"
         onChangeText={text => handleChangeName(text)}
         defaultValue="text"
@@ -121,7 +126,7 @@ export default function SignUp(props) {
       <View style={tw`border-black flex-row border-2 border-indigo-600 rounded-full mt-2`}>
         <Image source={require('../../images/at.png')}  style={tw`h-5 w-5 mt-3 ml-4 pl-1`}/>
       <TextInput
-        style={{height: 40,borderColor:"orange",borderRadius:50,paddingLeft:20,flexShrink:1}}
+        style={{height: 40,width:'100%',borderColor:"orange",borderRadius:50,paddingLeft:10,flexShrink:1}}
         placeholder="Enter  Your  Email. . . . . . ....."
         onChangeText={email => handleChangeEmail(email)}
         defaultValue="text"
@@ -146,20 +151,20 @@ export default function SignUp(props) {
       <View style={tw`border-black flex-row border-2 border-indigo-600 rounded-full mt-2`}>
         <Image source={require('../../images/otp.png')}  style={tw`h-6 w-5 mt-3 ml-4 pl-1`}/>
       <TextInput
-        style={{height: 40,borderColor:"orange",borderRadius:50,paddingLeft:20}}
+        style={{height: 40,width:'55%',borderColor:"orange",borderRadius:50,paddingLeft:10}}
         placeholder="Enter Otp"
         onChangeText={otp =>setOtp(otp)}
         defaultValue="text"
         value={otp}
       />
-      <TouchableOpacity style={tw`bg-indigo-600 rounded-full mt-1 mb-1 ml-24`}  onPress={()=>{verifyOtp()}}>
+      <TouchableOpacity style={tw`bg-indigo-600 rounded-full mt-1 mb-1`}  onPress={()=>{verifyOtp()}}>
           <Text style={tw`text-white font-bold mt-1`}>   Verify Otp  </Text>
           </TouchableOpacity>
       </View>
       <View style={tw`border-black flex-row border-2 border-indigo-600 rounded-full mt-2 mb-4`}>
         <Image source={require('../../images/password.png')}  style={tw`h-5 w-5 mt-3 ml-4 pl-1`}/>
         <TextInput
-        style={{height: 40,borderColor:"orange",borderRadius:50,paddingLeft:20}}
+        style={{height: 40,width:'100%',borderColor:"orange",borderRadius:50,paddingLeft:10}}
         placeholder="Enter Password"
         onChangeText={password => handleChangePassword(password)}
         defaultValue="text"
@@ -169,7 +174,7 @@ export default function SignUp(props) {
       <View style={tw`border-black flex-row border-2 border-indigo-600 rounded-full mt-0 mb-4`}>
         <Image source={require('../../images/telephone-call.png')}  style={tw`h-5 w-5 mt-3 ml-4 pl-1`}/>
         <TextInput
-        style={{height: 40,borderColor:"orange",borderRadius:50,paddingLeft:20}}
+        style={{height: 40,width:'100%',borderColor:"orange",borderRadius:50,paddingLeft:10}}
         placeholder="Enter Phone Number"
         onChangeText={phoneNum => handleChangePhoneNum(phoneNum)}
         defaultValue="text"
@@ -208,6 +213,13 @@ export default function SignUp(props) {
           </TouchableOpacity>
       </View>
       </View>
-        </>
+        </>:
+      <>
+      <View style={{backgroundColor:"snow",height:'100%' , width:'100%'}}>
+      <Image source={require('../../images/Infinity.gif')} style={tw`h-12 w-12 mt-3 ml-40 mt-48 pl-1`}/>
+      </View>
+      </>
+    }
+    </>
     )
 }

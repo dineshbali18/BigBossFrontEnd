@@ -11,10 +11,10 @@ export default function VoteTelugu(props) {
         <>
         <SafeAreaView>
         {/* <ImageBackground 
-        style={{resizeMode: 'cover',width: '100%', height: '100%',zIndex:100}}
+        style={{resizeMode: 'cover',width: '100%', height: '80%',zIndex:100}}
         source={{uri:"https://i.imgur.com/Rwk9FrE.png"}} /> */}
-        <Image source={{uri:'https://i.imgur.com/Rwk9FrE.png'}} style={{ resizeMode: 'cover', width: '100%', height: '89%',borderRadius:0}}/>
-            <Button title="SignUp" onPress={()=>{Actions.signup()}}/>
+        <Image source={{uri:'https://i.imgur.com/Rwk9FrE.png'}} style={{ resizeMode: 'cover', width: '100%', height: '90%',margin:0,padding:0}}/>
+            <Button title="SignUp" style={{height:'5%',width:'2%'}} onPress={()=>{Actions.signup()}}/>
             <Button title="SignIn" onPress={()=>{Actions.signin()}}/>
       </SafeAreaView>
         </>

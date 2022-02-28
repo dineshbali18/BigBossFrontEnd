@@ -11,13 +11,13 @@ import tw from 'tailwind-react-native-classnames'
 
 export default function SignIn(props) {
     // const [homepage,setHomePage]=useState(0);
-    // const [userId,setUserId]=useState(0)
+    const [load,setLoad]=useState(0)
     const userId=useRef(0)
     // const [token,setToken]=useState('');
     const token = useRef('')
     const [user,setUser]=useState({
-        email:"",
-        password:"",
+        email:"121810301018@gitam.in",
+        password:"DiNu8@",
         error:"",
         success:false
     })
@@ -52,8 +52,10 @@ export default function SignIn(props) {
     // }
     
      const onSubmit = async()=>{
+         setLoad(1);
         const data=await signin({email,password})
         if(data.error){
+            setLoad(0);
             setUser({...user,error:data.error})
         }
         else{
@@ -78,17 +80,19 @@ export default function SignIn(props) {
         <>
         {/* {homepage==1?<><Home/></>:
         <> */}
+        {load==0?
+        <View>
         <View >
         <Button  title="   go Back" onPress={()=>{Actions.pop()}}/>
         </View>
-        <View >
+        <View style={{width:'100%'}}>
             <Image source={require('../../images/signup1.png')} style={tw`h-52 w-96 mt-1 mb-2`}/>
         </View>
         <View style={tw`ml-6 mr-4 mt-0`}>
             <View style={tw`border-black flex-row border-2 border-indigo-600 rounded-full`}>
         <Image source={require('../../images/at.png')}  style={tw`h-5 w-5 mt-3 ml-4 pl-1`}/>
       <TextInput
-        style={{height: 40,borderColor:"orange",borderRadius:50,paddingLeft:20}}
+        style={{height: 40,width:'100%',borderColor:"orange",borderRadius:50,paddingLeft:20}}
         placeholder="Enter Email"
         onChangeText={email => handleChangeEmail(email)}
         defaultValue="text"
@@ -98,7 +102,7 @@ export default function SignIn(props) {
       <View style={tw`border-black flex-row border-2 border-indigo-600 rounded-full mt-2 mb-4`}>
         <Image source={require('../../images/password.png')}  style={tw`h-5 w-5 mt-3 ml-4 pl-1`}/>
         <TextInput
-        style={{height: 40,borderColor:"orange",borderRadius:50,paddingLeft:20}}
+        style={{height: 40,width:'100%',borderColor:"orange",borderRadius:50,paddingLeft:20}}
         placeholder="Enter Password"
         onChangeText={password => handleChangePassword(password)}
         defaultValue="text"
@@ -115,6 +119,13 @@ export default function SignIn(props) {
           <Image source={require('../../images/next.png')} style={tw`h-5 w-5 mt-1 ml-1`}/>
           </TouchableOpacity>
       </View>
+      </View>:
+      <>
+      <View style={{backgroundColor:"snow",height:'100%' , width:'100%'}}>
+      <Image source={require('../../images/Infinity.gif')} style={tw`h-12 w-12 mt-3 ml-40 mt-48 pl-1`}/>
+      </View>
+      </>
+}
       {/* </> */}
         {/* } */}
         </>

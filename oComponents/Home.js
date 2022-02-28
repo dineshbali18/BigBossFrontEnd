@@ -11,7 +11,7 @@ import LoadNames from './chatCompo/LoadNames';
 
 export default function Home(props) {
   // console.log("/////////////////////////////")
-  console.log(props);
+  // console.log(props);
   const[token,setToken]=useState(props.token.current);
   const[userId,setUserId]=useState(props.userId.current)
 

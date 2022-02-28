@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Balis",
+    "name": "BigBoss Ott Unofficial",
     "slug": "Balis",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -25,7 +25,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.BigBoss6"
+      "package": "com.BigBoss6",
+      "versionCode":1
     },
     "web": {
       "favicon": "./assets/favicon.png"

@@ -9,6 +9,8 @@ import tw from 'tailwind-react-native-classnames'
 const Connection_Port ='https://chatservicebigboss.herokuapp.com/';
 
 let socket;
+
+import KeyboardAvoidingWrapper from '../KeyboardAvoidingWrapper'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -22,6 +24,7 @@ const token=useRef(props.token);
  const [name,setName]=useState('')
  const[msg,setMsg]=useState("");
  const  [msgList,setMsgList]=useState([]);
+ const [load,setLoad]=useState(0);
  
 
   useEffect(() => {
@@ -31,7 +34,9 @@ const token=useRef(props.token);
 
 
   useEffect(()=>{
+
     socket.on('recieve-msg',(data)=>{
+      // console.log(data);
       setMsgList([...msgList,data])
     })
   });
@@ -43,6 +48,7 @@ const token=useRef(props.token);
 
 
   useEffect(()=>{
+    setLoad(1);
     connectToRoom();
     getNameById(userId)
       .then(data=>{
@@ -51,6 +57,7 @@ const token=useRef(props.token);
         }
       )
     socket.on('recieve-datadb',(data)=>{
+      setLoad(0);
       setMsgList(data[0].msgs)
     })
   },[])
@@ -77,33 +84,41 @@ const token=useRef(props.token);
   return (
       <>
       <SafeAreaView>
-      <Button  title="  go Back" onPress={()=>{goback()}}/>
+      <Button style={{zindex:'200'}} title="  go Back" onPress={()=>{goback()}}/>
       <Text style={tw`ml-10 font-bold text-2xl`}> {props.r_title}</Text>
       <View style={tw`m-4 h-5/6`}>
+        <>
+        {load==0?
       <ScrollView >
+        <View>
       {/* {console.log(name)} */}
           {msgList.map((payload,index)=>{
             // console.log(payload)
               return(
-                <View  style={tw`border-black border-2 border-yellow-600 mt-4 h-8 mx-4  flex-row`}>
-                  <Text style={tw`text-base text-green-500 font-bold`}>{payload.author} </Text>
+                <View key={index} style={tw`border-black border-2 border-yellow-600 mt-4 h-8 mx-4  flex-row`,{maxWidth:'80%'}}>
+                  <Text  style={tw`text-base text-green-500 font-bold`}>{payload.author} </Text>
                   <Text style={tw`text-base font-bold`}>  {payload.message}</Text>
                 </View>
               )
           })}
-          </ScrollView>
-      
-      <View style={tw`flex-row top-0 bottom-0 right-0`}>
-      <TextInput
-        style={{height: 40,borderColor:"orange",borderRadius:50,paddingLeft:20}}
-        placeholder="Enter message"
+          </View>
+          </ScrollView>:
+          <>
+          <View style={{backgroundColor:"snow",height:'80%' , width:'100%'}}>
+      <Image source={require('../../images/Infinity.gif')} style={tw`h-12 w-12 mt-3 ml-40 mt-48 pl-1`}/>
+      </View>
+          </>}
+          </>
+      <View style={tw`flex-row top-0 right-0 border-black flex-row border-2 border-indigo-600 mt-2 mb-4`}>
+        <TextInput
+        style={tw`flex-row top-0 right-0 border-black flex-row border-2 border-indigo-600 mt-2 mb-4`,{borderColor:"yellow",width:'85%',borderColor:"black",margin:10}}
         onChangeText={(msg) => setMsg(msg)}
         defaultValue="text"
         value={msg}
-      />
-      <TouchableOpacity style={tw`h-10 w-32 rounded-full ml-28 border-indigo-600 bg-indigo-600 justify-center pl-10 flex-row p-2`} onPress={()=>{msg.length!=0&& sendMessage()}} >
-          <Text style={tw`text-white font-bold`}>send</Text>
-          {/* <Image source={require('../../images/next.png')} style={tw`h-5 w-5 mt-1 ml-1`}/> */}
+        multiline={true}
+         placeholder='Enter message.......'/>
+      <TouchableOpacity onPress={()=>{msg.length!=0&& sendMessage()}} >
+          <Image source={require('../../images/send-message.png')} style={tw`h-6 w-6 mt-2 ml-0`}/>
           </TouchableOpacity>
       </View>
       </View>
@@ -112,6 +127,7 @@ const token=useRef(props.token);
           {/* <Image source={require('../../images/next.png')} style={tw`h-5 w-5 mt-1 ml-1`}/> */}
           {/* </TouchableOpacity> */}
       </SafeAreaView>
+  
      </>
   );
 }

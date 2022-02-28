@@ -83,7 +83,8 @@ export default function VoteTelugu(props) {
         <Button  title="  go Back" onPress={()=>{Actions.pop()}}/>
         </View>
             <View style={tw("flex flex-row")} >
-            <View><Text>{votesleft>0?<View><Text style={{fontStyle:'italic'}}>                                  Votes Left:{votesleft}</Text><Text>Voting closes at Midnight</Text></View>:<Text>No Votes Left today</Text>}</Text></View>
+            <View><Text>{votesleft>0?<View><Text style={{paddingLeft:(Dimensions.get('window').width/5-(30)),fontSize:(Dimensions.get('window').height/30),fontFamily: 'notoserif',alignContent:'center',fontWeight:'bold'}}>You have {votesleft} Left Today</Text>
+            <Text style={{paddingLeft:(Dimensions.get('window').width/4)}}>Voting closes at Midnight</Text></View>:<Text>No Votes Left today</Text>}</Text></View>
             </View>
             <View style={tw("flex flex-row")}>
             
@@ -108,7 +109,7 @@ export default function VoteTelugu(props) {
             >
               <>
               <Image source={{uri:item.image}} style={{ resizeMode: 'cover', width: '100%', height: '100%',borderRadius:50}}/>
-              <Text style={{alignContent:'center',marginLeft:10}}>{item.name}</Text>
+              <Text style={{alignContent:'center',marginLeft:10,fontWeight:'bold'}}>{item.name}</Text>
               </>
             </TouchableHighlight>
     );
