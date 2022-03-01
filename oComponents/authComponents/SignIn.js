@@ -92,7 +92,7 @@ export default function SignIn(props) {
             <View style={tw`border-black flex-row border-2 border-indigo-600 rounded-full`}>
         <Image source={require('../../images/at.png')}  style={tw`h-5 w-5 mt-3 ml-4 pl-1`}/>
       <TextInput
-        style={{height: 40,width:'100%',borderColor:"orange",borderRadius:50,paddingLeft:20}}
+        style={{height: 40,width:'100%',borderColor:"orange",borderRadius:50,paddingLeft:10}}
         placeholder="Enter Email"
         onChangeText={email => handleChangeEmail(email)}
         defaultValue="text"
@@ -102,7 +102,7 @@ export default function SignIn(props) {
       <View style={tw`border-black flex-row border-2 border-indigo-600 rounded-full mt-2 mb-4`}>
         <Image source={require('../../images/password.png')}  style={tw`h-5 w-5 mt-3 ml-4 pl-1`}/>
         <TextInput
-        style={{height: 40,width:'100%',borderColor:"orange",borderRadius:50,paddingLeft:20}}
+        style={{height: 40,width:'100%',borderColor:"orange",borderRadius:50,paddingLeft:10}}
         placeholder="Enter Password"
         onChangeText={password => handleChangePassword(password)}
         defaultValue="text"
