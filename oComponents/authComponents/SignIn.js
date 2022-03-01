@@ -16,8 +16,8 @@ export default function SignIn(props) {
     // const [token,setToken]=useState('');
     const token = useRef('')
     const [user,setUser]=useState({
-        email:"121810301018@gitam.in",
-        password:"DiNu8@",
+        email:"",
+        password:"",
         error:"",
         success:false
     })
