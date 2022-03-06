@@ -82,6 +82,7 @@ export default function VoteTelugu(props) {
         
         <Button  title="  go Back" onPress={()=>{Actions.pop()}}/>
         </View>
+        <ScrollView>
             <View style={tw("flex flex-row")} >
             <View><Text>{votesleft>0?<View><Text style={{paddingLeft:(Dimensions.get('window').width/5-(30)),fontSize:(Dimensions.get('window').height/30),fontFamily: 'notoserif',alignContent:'center',fontWeight:'bold'}}>You have {votesleft} Left Today</Text>
             <Text style={{paddingLeft:(Dimensions.get('window').width/4)}}>Voting closes at Midnight</Text></View>:<Text>No Votes Left today</Text>}</Text></View>
@@ -89,6 +90,8 @@ export default function VoteTelugu(props) {
             <View style={tw("flex flex-row")}>
             
       <View>
+
+        <View>
               <FlatList
   data={BBMates}
   numColumns={3}
@@ -116,11 +119,13 @@ export default function VoteTelugu(props) {
   }}
   keyExtractor={conte => conte._id}
 />
+</View>
         </View>
         </View>
         <View style={{marginTop:100,marginLeft:15,marginRight:15,marginBottom:10}}>
         <Button color="#ffa801" title="Check Percentages" onPress={()=>{goToCheckPercenta()}}></Button>
         </View>
+        </ScrollView>
         </>
         </>
     )

@@ -85,6 +85,7 @@ export default function SignIn(props) {
         <View >
         <Button  title="   go Back" onPress={()=>{Actions.pop()}}/>
         </View>
+        <ScrollView>
         <View style={{width:'100%'}}>
             <Image source={require('../../images/signup1.png')} style={tw`h-52 w-96 mt-1 mb-2`}/>
         </View>
@@ -119,7 +120,12 @@ export default function SignIn(props) {
           <Image source={require('../../images/next.png')} style={tw`h-5 w-5 mt-1 ml-1`}/>
           </TouchableOpacity>
       </View>
-      </View>:
+      <Text></Text>
+      <Text></Text>
+      <Text></Text>
+      </ScrollView>
+      </View>
+      :
       <>
       <View style={{backgroundColor:"snow",height:'100%' , width:'100%'}}>
       <Image source={require('../../images/Infinity.gif')} style={tw`h-12 w-12 mt-3 ml-40 mt-48 pl-1`}/>

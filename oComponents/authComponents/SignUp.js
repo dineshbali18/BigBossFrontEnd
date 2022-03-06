@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React,{useState,useEffect} from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Platform,StyleSheet, TextInput, View,ScrollView, Button,Text, AppRegistry, Alert,Image} from 'react-native';
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { Actions } from 'react-native-router-flux';
 import { getotp, sendotp, signup,verifyotp } from './helper/authCalls';
 import tw from 'tailwind-react-native-classnames'
@@ -17,6 +18,8 @@ export default function SignUp(props) {
     const [correct,setCorrect]=useState(0)
     const [load,setLoad]=useState(0);
     const [otpClick,setotpClick]=useState(0);
+    const [isSelected, setSelection] = useState(false);
+    const [terms,setTerms]=useState(0)
 
     const [user,setUser]=useState({
         name:"",
@@ -40,6 +43,10 @@ export default function SignUp(props) {
     }
     const handleChangePhoneNum=(text)=>{
         setUser({...user,phoneNum:text})
+    }
+
+    const goToTerms=()=>{
+        setTerms(1);
     }
 
     const Submit=()=>{
@@ -106,9 +113,12 @@ export default function SignUp(props) {
         <>
         {load==0?
         <>
+        {terms==0?
+        <>
         <View >
         <Button  title="   go Back" onPress={()=>{Actions.pop()}}/>
         </View>
+        <ScrollView>
         <View style={{width:'100%'}} >
             <Image source={require('../../images/signup11.png')} style={tw`h-36 w-96 mt-1 mb-2`}/>
         </View>
@@ -182,6 +192,19 @@ export default function SignUp(props) {
       />
       </View>
       <View>
+      {/* <BouncyCheckbox
+  size={25}
+  fillColor="red"
+  unfillColor="#FFFFFF"
+  iconStyle={{ borderColor: "purple" }}
+  textStyle={{ fontFamily: "JosefinSans-Regular" }}
+//   onPress={(isChecked: boolean) => {}}
+/> */}
+<Text>By clicking "Sign up" I agree that I have read and accepted the <Text style={{fontWeight:'bold',color:'blue',textDecorationLine:'underline'}} onPress={()=>{goToTerms()}}>"Terms of Use"</Text>.</Text> 
+
+</View>
+
+      <View>
           {verify1==0?<View style={tw`flex-row`}>
       <Text style={tw`text-indigo-600 font-bold ml-2`}>{verify}</Text>
       {verify!=''?
@@ -213,7 +236,20 @@ export default function SignUp(props) {
           </TouchableOpacity>
       </View>
       </View>
-        </>:
+        
+      </ScrollView>
+      </>:
+      <>
+      <View style={tw`m-6`}>
+          <View style={tw`m-6`}>
+       <Text>Dont send unwanted messages</Text>
+       </View>
+       <Button title="Accept" onPress={()=>{setTerms(0);}}/>
+       </View>
+      </>
+}
+      <Text></Text>
+      </>:
       <>
       <View style={{backgroundColor:"snow",height:'100%' , width:'100%'}}>
       <Image source={require('../../images/Infinity.gif')} style={tw`h-12 w-12 mt-3 ml-40 mt-48 pl-1`}/>
