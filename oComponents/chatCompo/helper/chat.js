@@ -20,3 +20,18 @@ export const getNameById=(id)=>{
    })
    .catch(err => console.log(err));
 }
+
+export const sendReport=report=>{
+  // console.log(report);
+  return fetch(`https://bigbossotpcontes.herokuapp.com/api/create/report`,{
+   method:"POST",
+   headers: {
+    Accept: "application/json",
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(report)
+  }).then(response => {
+    return response.json();
+  })
+  .catch(err =>{ console.log("<<<<<<<<<<<<<<<"),console.log(err),console.log("<<<<<<<<<<<<<<<")});
+}

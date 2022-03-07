@@ -14,7 +14,7 @@ import KeyboardAvoidingWrapper from '../KeyboardAvoidingWrapper'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const {getNameById}=require('./helper/chat')
+const {getNameById, sendReport}=require('./helper/chat')
 
 
 export default function CommonChat(props) {
@@ -95,11 +95,15 @@ const token=useRef(props.token);
       {/* {console.log(name)} */}
           {msgList.map((payload,index)=>{
             // console.log(payload)
+            const {author,message}=payload;
               return(
                 <View key={index} style={tw`border-black border-2 border-yellow-600 mt-4 h-8 mx-4  flex-row`,{maxWidth:'80%'}}>
                   <View style={tw`flex-row`}>
                   <Text  style={tw`text-base text-green-500 font-bold`}>{payload.author} </Text>
-                  <Image source={require('../../images/dots.png')} style={tw`h-5 w-5 mt-1.5 ml-1`}/>
+                  <Image  source={require('../../images/dots.png')} style={tw`h-5 w-5 mt-1.5 ml-1`}/>
+                  <View >
+                  <Button backgroundColor='black' onPress={()=>{sendReport({userId,author,message})}} title="report" ></Button>
+                  </View>
                   </View>
                   <View style={tw`flex-row`}>
                   <Text style={tw`text-base font-bold`}>  {payload.message}</Text>
