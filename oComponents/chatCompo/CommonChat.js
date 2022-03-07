@@ -25,6 +25,7 @@ const token=useRef(props.token);
  const[msg,setMsg]=useState("");
  const  [msgList,setMsgList]=useState([]);
  const [load,setLoad]=useState(0);
+ const [report,setReport]=useState(0);
  
 
   useEffect(() => {
@@ -81,6 +82,12 @@ const token=useRef(props.token);
   const goback=()=>{
       Actions.loadnames({token,userId})
   }
+  const displayReportSend=()=>{
+    setReport(1);
+    setTimeout(()=>{
+      setReport(0);
+    },1200)
+  }
 
   return (
       <>
@@ -88,6 +95,7 @@ const token=useRef(props.token);
       <Button style={{zindex:'200'}} title="  go Back" onPress={()=>{goback()}}/>
       <Text style={tw`ml-10 font-bold text-2xl`}> {props.r_title}</Text>
       <View style={tw`m-4 h-5/6`}>
+      {report==1?<Text style={{color:'red'}}>Report Sent !</Text>:<></>}
         <>
         {load==0?
       <ScrollView >
@@ -102,7 +110,9 @@ const token=useRef(props.token);
                   <Text  style={tw`text-base text-green-500 font-bold`}>{payload.author} </Text>
                   <Image  source={require('../../images/dots.png')} style={tw`h-5 w-5 mt-1.5 ml-1`}/>
                   <View >
-                  <Button backgroundColor='black' onPress={()=>{sendReport({userId,author,message})}} title="report" ></Button>
+                  <TouchableOpacity style={tw`h-6 w-16 rounded-full border-indigo-600 bg-indigo-600 flex-row justify-center mt-1.5`} onPress={()=>{displayReportSend(),sendReport({userId,author,message})}} >
+          <Text style={tw`text-white font-bold`}>report</Text>
+          </TouchableOpacity>
                   </View>
                   </View>
                   <View style={tw`flex-row`}>

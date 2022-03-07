@@ -90,7 +90,10 @@ export default function VoteTelugu(props) {
             <View style={tw("flex flex-row")}>
             
       <View>
-
+      <View style={{marginTop:10,marginLeft:15,marginRight:15,marginBottom:10}}>
+        <Button color="#ffa801" title="Check Percentages" onPress={()=>{votesleft==0 && goToCheckPercenta()}}></Button>
+        <Text>Complete your votes to check Percentages</Text>
+        </View>
         <View>
               <FlatList
   data={BBMates}
@@ -121,9 +124,6 @@ export default function VoteTelugu(props) {
 />
 </View>
         </View>
-        </View>
-        <View style={{marginTop:100,marginLeft:15,marginRight:15,marginBottom:10}}>
-        <Button color="#ffa801" title="Check Percentages" onPress={()=>{goToCheckPercenta()}}></Button>
         </View>
         </ScrollView>
         </>

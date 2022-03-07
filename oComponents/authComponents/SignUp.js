@@ -242,7 +242,14 @@ export default function SignUp(props) {
       <>
       <View style={tw`m-6`}>
           <View style={tw`m-6`}>
-       <Text>Dont send unwanted messages</Text>
+       <Text style={{fontWeight:'bold',marginBottom:10}}>Dont send unwanted commercial content or spam</Text>
+       <Text style={{fontWeight:'bold',marginBottom:10}}>Dont send Pornography or sexually explicit material</Text>
+       <Text style={{fontWeight:'bold',marginBottom:10}}>Dont send unwanted child abuse messages</Text>
+       <Text style={{fontWeight:'bold',marginBottom:10}}>Dont send hate speech or graphic violence messages</Text>
+       <Text style={{fontWeight:'bold',marginBottom:10}}>Dont Promote terrorism</Text>
+       <Text style={{fontWeight:'bold',marginBottom:10}}>Dont Harassment or bullying messages</Text>
+       <Text style={{fontWeight:'bold',marginBottom:10}}>Dont send misinformation</Text>
+       <Text style={{fontWeight:'bold',marginBottom:10}}>you can also report if you found any message which is not obeying the above rules you can report that message and we will have a look and if we found it is not obeying rules then we will remove those accounts.</Text>
        </View>
        <Button title="Accept" onPress={()=>{setTerms(0);}}/>
        </View>
