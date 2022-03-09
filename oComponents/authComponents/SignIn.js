@@ -13,6 +13,7 @@ export default function SignIn(props) {
     // const [homepage,setHomePage]=useState(0);
     const [load,setLoad]=useState(0)
     const userId=useRef(0)
+    const role=useRef(0)
     // const [token,setToken]=useState('');
     const token = useRef('')
     const [user,setUser]=useState({
@@ -62,6 +63,8 @@ export default function SignIn(props) {
             // setToken(data.token);
             userId.current=data.user._id;
             token.current=data.token;
+            role.current=data.user.role;
+
             // console.log("aaaaaaaa",token);
             // setUserId(data.user._id);
             setUser({...user,
@@ -70,7 +73,7 @@ export default function SignIn(props) {
             error:"",
             success:true})
             
-            Actions.home({token,userId});
+            Actions.home({token,userId,role});
             // setHomePage(1);
         }
     

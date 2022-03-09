@@ -14,6 +14,7 @@ export default function Home(props) {
   // console.log(props);
   const[token,setToken]=useState(props.token.current);
   const[userId,setUserId]=useState(props.userId.current)
+  const [role,setRole]=useState(props.role.current)
 
 
  const [myArray, setMyArray] = useState([]);
@@ -42,8 +43,12 @@ export default function Home(props) {
 <Text/>
 <Text/>
 </View>
-<Button color="#ff5c5c"  title="   Vote   " onPress={()=>{console.log("dinu home props"),Actions.votetelugu({token,userId})}}/>
-<Button color="#ff5c5c"  title="   Chat  " onPress={()=>{console.log("dinu home props"),Actions.loadnames({token,userId})}}/>
+{role==1?<>
+  <Button color="#ff5c5c"  title="Admin" onPress={()=>{Actions.admin({token,userId,role})}}/>
+</>:<></>}
+<Button color="#ff5c5c"  title="Vote" onPress={()=>{Actions.votetelugu({token,userId,role})}}/>
+<Button color="#ff5c5c"  title="Chat" onPress={()=>{Actions.loadnames({token,userId,role})}}/>
+
 
 
       <StatusBar style="auto" />

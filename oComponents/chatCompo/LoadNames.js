@@ -19,6 +19,7 @@ export default function LoadNames(props) {
     const [rooms,setRooms]=useState([])
     const token=useRef(props.token);
   const userId=useRef(props.userId)
+  const role=useRef(props.role)
  const [name,setName]=useState('')
  const [load,setLoad]=useState(0);
 
@@ -38,14 +39,14 @@ export default function LoadNames(props) {
     },[])
 
     const gotoChat=(r_name,r_title)=>{
-        Actions.commonchat({name,userId,r_name,r_title})
+        Actions.commonchat({name,userId,r_name,r_title,role})
     }
 
     return (
         <>
         <>
         <SafeAreaView>
-        <Button  title="  go Back" onPress={()=>{Actions.home({token,userId})}}/>
+        <Button  title="  go Back" onPress={()=>{Actions.home({token,userId,role})}}/>
             <Text style={tw`mt-2 font-bold ml-4`}>Hi,{name}</Text>
             {load==0?
             <View>

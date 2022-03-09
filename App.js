@@ -13,6 +13,7 @@ import SignIn from './oComponents/authComponents/SignIn'
 import SignUp from './oComponents/authComponents/SignUp'
 import CommonChat from './oComponents/chatCompo/CommonChat';
 import LoadNames from './oComponents/chatCompo/LoadNames';
+import Admin from './oComponents/Admin';
 // import TermsAndConditions from './oComponents/authComponents/TermsAndConditions';
 
 
@@ -24,7 +25,7 @@ export default function App() {
           <Scene key = "loadnames" component = {LoadNames} title = "Initial"   hideNavBar={true} />
           <Scene key = "commonchat" component = {CommonChat} title = "Initial"  hideNavBar={true} />
           <Scene key = "beginhome" component = {BeginHome} title = "Initial" initial={true} hideNavBar={true} />
-          {/* <Scene key = "terms" component = {TermsAndConditions} title = "Terms and Conditions" /> */}
+          <Scene key = "admin" component = {Admin} title = "Admin Page" />
           <Scene key = "signup" component = {SignUp} title = "SIGN UP" />
           <Scene key = "signin" component = {SignIn} title = "SIGN IN" />
           <Scene key = "home" component = {Home} title = "Home" />

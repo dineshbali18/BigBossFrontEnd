@@ -18,9 +18,11 @@ const {getNameById, sendReport}=require('./helper/chat')
 
 
 export default function CommonChat(props) {
+  // console.log(props.role)
 
 const token=useRef(props.token);
   const [userId,setUserId]=useState(props.userId.current)
+  const [role,setRole]=useState(props.role.current)
  const [name,setName]=useState('')
  const[msg,setMsg]=useState("");
  const  [msgList,setMsgList]=useState([]);
@@ -80,7 +82,7 @@ const token=useRef(props.token);
   }
 
   const goback=()=>{
-      Actions.loadnames({token,userId})
+      Actions.loadnames({token,userId,role})
   }
   const displayReportSend=()=>{
     setReport(1);
